@@ -1,4 +1,4 @@
-name: Build iOS IPA & Android APK
+name: Build iOS IPA
 
 on:
   push:
@@ -21,46 +21,19 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
-      - name: Build iOS (Payload .ipa)
+      - name: Build iOS App & Package IPA
         run: |
           flutter build ios --release --no-codesign
           cd build/ios/iphoneos
           mkdir -p Payload
           cp -r Runner.app Payload/
           zip -r -y Aura777_iOS.ipa Payload
+          ls -la Aura777_iOS.ipa
+          pwd
 
       - name: Upload iOS IPA Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Aura777-iOS-IPA
-          path: flutter_app/build/ios/iphoneos/Aura777_iOS.ipa
-
-  build-android:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: '17'
-
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          cache: true
-
-      - name: Install Dependencies
-        run: flutter pub get
-
-      - name: Build Android APK
-        run: flutter build apk --release --android-skip-build-dependency-validation
-
-      - name: Upload Android APK Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Aura777-Android-APK
-          path: flutter_app/build/app/outputs/flutter-apk/app-release.apk
+          path: build/ios/iphoneos/Aura777_iOS.ipa
+          if-no-files-found: error
