@@ -1,0 +1,26 @@
+name: aura777_app
+description: "Official Native Android APK for AURA777 Game Platform"
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dio: ^5.4.1
+  webview_flutter: ^4.7.0
+  shared_preferences: ^2.2.2
+  cached_network_image: ^3.3.1
+  intl: ^0.19.0
+  fluttertoast: ^8.2.4
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
